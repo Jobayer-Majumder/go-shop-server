@@ -53,7 +53,7 @@ client.connect(err => {
     const product = req.body;
     pdCollection.insertOne(product)
       .then(result => {
-        res.redirect('/')
+        res.send(result.insertedCount > 0)
       })
   });
 
@@ -61,7 +61,7 @@ client.connect(err => {
     const orderInfo = req.body;
     orderCollection.insertOne(orderInfo)
       .then(result => {
-        res.send(result)
+        res.send(result.insertedCount > 0)
       })
   });
   // end of post api ) 
@@ -72,8 +72,7 @@ client.connect(err => {
     const pdId = ObjectId(req.params.id);
     pdCollection.deleteOne({ _id: pdId })
       .then(result => {
-        res.redirect('/')
-        console.log(result)
+        res.send(result.deletedCount > 0)
       })
   });
   // end of delete api )
